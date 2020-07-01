@@ -20,7 +20,7 @@ All software is written in PYTHON3 (https://www.python.org/) and makes use of th
 4. Make sure that pip is installed and use pip to install the following packages: setuptools and virtualenv (http://docs.python-guide.org/en/latest/dev/virtualenvs/#virtualenvironments-ref).
 5. Create a virtual environemnt in a desired location by running the following command: `code(virtualenv ENV_NAME)`
 6. Direct to the virtual environment source directory. 
-7. Unzip the HAABSA_software.zip file in the virtual environment directrory. 
+7. Unzip the zip file of this GitHub repository in the virtual environment directrory. 
 8. Activate the virtual environment by the following command: 'code(Scripts\activate.bat)`.
 9. Install the required packages from the requirements.txt file by running the following command: `code(pip install -r requirements.txt)`.
 10. Install the required space language pack by running the following command: `code(python -m spacy download en)`
