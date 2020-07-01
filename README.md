@@ -25,6 +25,8 @@ All software is written in PYTHON3 (https://www.python.org/) and makes use of th
 9. Install the required packages from the requirements.txt file by running the following command: `code(pip install -r requirements.txt)`.
 10. Install the required space language pack by running the following command: `code(python -m spacy download en)`
 
+Note: the files BERT768embedding2015.txt and BERT768embedding2016.txt are too large for GitHub. These can be generated using getBERTusingColab.py.
+
 ### Configure paths
 
 The following scripts contain file paths to adapt to your computer (this is done by adding the path to you virtual environment before the filename. For example "/path/to/venv"+"data/programGeneratedData/GloVetraindata"): main_cross.py, main_hyper.py, config.py, HyperDataMaker.py, adversarial.py.
