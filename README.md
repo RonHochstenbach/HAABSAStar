@@ -67,7 +67,7 @@ The following directories are necessary for the virtual environment setup: \__py
 - results: temporary store location for the hyperopt package
 
 
-## Changed files respect to https://github.com/mtrusca/HAABSA_PLUS_PLUS:
+## Changed files with respect to https://github.com/mtrusca/HAABSA_PLUS_PLUS:
 - main.py
 - main_hyper.py
 - main_cross.py
