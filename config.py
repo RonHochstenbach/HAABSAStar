@@ -11,7 +11,7 @@ import sys
 FLAGS = tf.app.flags.FLAGS
 #general variables
 tf.app.flags.DEFINE_string('embedding_type','BERT','can be: glove, word2vec-cbow, word2vec-SG, fasttext, BERT, BERT_Large, ELMo')
-tf.app.flags.DEFINE_integer("year",2015, "year data set [2014]")
+tf.app.flags.DEFINE_integer("year",2016, "year data set [2014]")
 tf.app.flags.DEFINE_integer('embedding_dim', 768, 'dimension of word embedding')
 tf.app.flags.DEFINE_integer('batch_size', 20, 'number of example per batch')
 tf.app.flags.DEFINE_integer('n_hidden', 300, 'number of hidden unit')
@@ -32,33 +32,35 @@ tf.app.flags.DEFINE_string('is_r', '1', 'prob')
 tf.app.flags.DEFINE_integer('max_target_len', 19, 'max target length')
 tf.app.flags.DEFINE_integer('gen_input_dims', 100 , 'dimensionality of random input generator')
 
+tf.app.flags.DEFINE_string('hardcoded_path', "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/", 'path where files are stored')
+
 # traindata, testdata and embeddings, train path aangepast met ELMo
-tf.app.flags.DEFINE_string("train_path_ont", "data/programGeneratedData/GloVetraindata"+str(FLAGS.year)+".txt", "train data path for ont")
-tf.app.flags.DEFINE_string("test_path_ont",  "data/programGeneratedData/GloVetestdata"+str(FLAGS.year)+".txt", "formatted test data path")
-tf.app.flags.DEFINE_string("train_path", "data/programGeneratedData/" + str(FLAGS.embedding_type) +str(FLAGS.embedding_dim)+'traindata'+str(FLAGS.year)+".txt", "train data path")
-tf.app.flags.DEFINE_string("test_path", "data/programGeneratedData/" + str(FLAGS.embedding_type) + str(FLAGS.embedding_dim)+'testdata'+str(FLAGS.year)+".txt", "formatted test data path")
-tf.app.flags.DEFINE_string("embedding_path", "data/programGeneratedData/" + str(FLAGS.embedding_type) + str(FLAGS.embedding_dim)+'embedding'+str(FLAGS.year)+".txt", "pre-trained glove vectors file path")
-tf.app.flags.DEFINE_string("remaining_test_path_ELMo", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'remainingtestdata'+str(FLAGS.year)+"ELMo.txt", "only for printing")
-tf.app.flags.DEFINE_string("remaining_test_path", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'remainingtestdata'+str(FLAGS.year)+".txt", "formatted remaining test data path after ontology")
+tf.app.flags.DEFINE_string("train_path_ont", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" + "data/programGeneratedData/GloVetraindata"+str(FLAGS.year)+".txt", "train data path for ont")
+tf.app.flags.DEFINE_string("test_path_ont", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/GloVetestdata"+str(FLAGS.year)+".txt", "formatted test data path")
+tf.app.flags.DEFINE_string("train_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/" + str(FLAGS.embedding_type) +str(FLAGS.embedding_dim)+'traindata'+str(FLAGS.year)+".txt", "train data path")
+tf.app.flags.DEFINE_string("test_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/" + str(FLAGS.embedding_type) + str(FLAGS.embedding_dim)+'testdata'+str(FLAGS.year)+".txt", "formatted test data path")
+tf.app.flags.DEFINE_string("embedding_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/" + str(FLAGS.embedding_type) + str(FLAGS.embedding_dim)+'embedding'+str(FLAGS.year)+".txt", "pre-trained glove vectors file path")
+tf.app.flags.DEFINE_string("remaining_test_path_ELMo", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'remainingtestdata'+str(FLAGS.year)+"ELMo.txt", "only for printing")
+tf.app.flags.DEFINE_string("remaining_test_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'remainingtestdata'+str(FLAGS.year)+".txt", "formatted remaining test data path after ontology")
 
 #svm traindata, svm testdata
-tf.app.flags.DEFINE_string("train_svm_path", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'trainsvmdata'+str(FLAGS.year)+".txt", "train data path")
-tf.app.flags.DEFINE_string("test_svm_path", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'testsvmdata'+str(FLAGS.year)+".txt", "formatted test data path")
-tf.app.flags.DEFINE_string("remaining_svm_test_path", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'remainingsvmtestdata'+str(FLAGS.year)+".txt", "formatted remaining test data path after ontology")
+tf.app.flags.DEFINE_string("train_svm_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Theahja sis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'trainsvmdata'+str(FLAGS.year)+".txt", "train data path")
+tf.app.flags.DEFINE_string("test_svm_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'testsvmdata'+str(FLAGS.year)+".txt", "formatted test data path")
+tf.app.flags.DEFINE_string("remaining_svm_test_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'remainingsvmtestdata'+str(FLAGS.year)+".txt", "formatted remaining test data path after ontology")
 
 #hyper traindata, hyper testdata
-tf.app.flags.DEFINE_string("hyper_train_path", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'hypertraindata'+str(FLAGS.year)+".txt", "hyper train data path")
-tf.app.flags.DEFINE_string("hyper_eval_path", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'hyperevaldata'+str(FLAGS.year)+".txt", "hyper eval data path")
+tf.app.flags.DEFINE_string("hyper_train_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'hypertraindata'+str(FLAGS.year)+".txt", "hyper train data path")
+tf.app.flags.DEFINE_string("hyper_eval_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'hyperevaldata'+str(FLAGS.year)+".txt", "hyper eval data path")
 
-tf.app.flags.DEFINE_string("hyper_svm_train_path", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'hypertrainsvmdata'+str(FLAGS.year)+".txt", "hyper train svm data path")
-tf.app.flags.DEFINE_string("hyper_svm_eval_path", "data/programGeneratedData/"+str(FLAGS.embedding_dim)+'hyperevalsvmdata'+str(FLAGS.year)+".txt", "hyper eval svm data path")
+tf.app.flags.DEFINE_string("hyper_svm_train_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'hypertrainsvmdata'+str(FLAGS.year)+".txt", "hyper train svm data path")
+tf.app.flags.DEFINE_string("hyper_svm_eval_path", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/programGeneratedData/"+str(FLAGS.embedding_dim)+'hyperevalsvmdata'+str(FLAGS.year)+".txt", "hyper eval svm data path")
 
 #external data sources
-tf.app.flags.DEFINE_string("pretrain_file", "data/externalData/"+str(FLAGS.embedding_type)+"."+str(FLAGS.embedding_dim)+"d.txt", "pre-trained embedding vectors for non BERT and ELMo")
+tf.app.flags.DEFINE_string("pretrain_file", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/externalData/"+str(FLAGS.embedding_type)+"."+str(FLAGS.embedding_dim)+"d.txt", "pre-trained embedding vectors for non BERT and ELMo")
 
-tf.app.flags.DEFINE_string("train_data", "data/externalData/restaurant_train_"+str(FLAGS.year)+".xml",
+tf.app.flags.DEFINE_string("train_data", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/externalData/restaurant_train_"+str(FLAGS.year)+".xml",
                     "train data path")
-tf.app.flags.DEFINE_string("test_data", "data/externalData/restaurant_test_"+str(FLAGS.year)+".xml",
+tf.app.flags.DEFINE_string("test_data", "/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/" +"data/externalData/restaurant_test_"+str(FLAGS.year)+".xml",
                     "test data path")
 
 tf.app.flags.DEFINE_string('method', 'AE', 'model type: AE, AT or AEAT')
