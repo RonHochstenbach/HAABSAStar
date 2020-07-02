@@ -90,7 +90,7 @@ def lcr_rot(input_fw, input_bw, sen_len_fw, sen_len_bw, target, sen_len_tr, keep
     prob = softmax_layer(outputs_fin, 8 * FLAGS.n_hidden, FLAGS.random_base, keep_prob2, l2, FLAGS.n_class)
     return prob, att_l, att_r, att_t_l, att_t_r
 
-def main(train_path, test_path, accuracyOnt, test_size, remaining_size, learning_rate=0.09, keep_prob=0.3, momentum=0.85, l2=0.00001):
+def main(train_path, test_path, accuracyOnt, test_size, remaining_size,  learning_rate=0.09, keep_prob=0.3, momentum=0.85, l2=0.00001):
     print_config()
     with tf.device('/gpu:1'):
         word_id_mapping, w2v = load_w2v(FLAGS.embedding_path, FLAGS.embedding_dim)
@@ -196,6 +196,8 @@ def main(train_path, test_path, accuracyOnt, test_size, remaining_size, learning
         max_ty, max_py = None, None
         max_prob = None
         step = None
+
+        Results_File = np.zeros((3, 1))
         for i in range(FLAGS.n_iter):
             trainacc, traincnt = 0., 0
             for train, numtrain in get_batch_data(tr_x, tr_sen_len, tr_x_bw, tr_sen_len_bw, tr_y, tr_target_word, tr_tar_len,
@@ -249,6 +251,16 @@ def main(train_path, test_path, accuracyOnt, test_size, remaining_size, learning
                 max_ty = ty
                 max_py = py
                 max_prob = p
+
+            Added = [[i+1], [trainacc], [acc]]
+            Results_File = np.concatenate((Results_File, Added), 1)
+
+        # Saving training information as csv file
+        from datetime import datetime
+        dateTimeObj = datetime.now()
+        save_dir = '/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/Results_Run_Adversarial/Run_' + str(
+            dateTimeObj) + '_lcrrot_'+str(FLAGS.year) +'.csv'
+        np.savetxt(save_dir, Results_File, delimiter=",")
 
         P = precision_score(max_ty, max_py, average=None)
         R = recall_score(max_ty, max_py, average=None)

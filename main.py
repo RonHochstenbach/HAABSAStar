@@ -44,10 +44,15 @@ def main(_):
     runLCRROTALT_v1 = False
     runLCRROTALT_v2 = False
     runLCRROTALT_v3 = False
-    runLCRROTALT_v4 = False
+    runLCRROTALT_v4 = True
 
-    runAdversarial = True
+    runAdversarial = False
     
+    #Save and Restore if desired 
+    Save = False
+    RestoreSave = False
+    restore_path = '/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/Saved_Models/2020-05-29 23:08:39.394204_BERT_2016/Iter_0-470'   #do not add .meta!
+
 
     # determine if backupmethod is used
     if runCABASC or runLCRROT or runLCRROTALT or runLCRROTINVERSE or runSVM or runLCRROTALT_v1 or runLCRROTALT_v2 or runLCRROTALT_v3 or runLCRROTALT_v4 or  runAdversarial:
@@ -57,6 +62,7 @@ def main(_):
 
     # retrieve data and wordembeddings
     train_size, test_size, train_polarity_vector, test_polarity_vector = loadDataAndEmbeddings(FLAGS, loadData)
+    print(train_size)
     print(test_size)
     remaining_size = 250
     accuracyOnt = 0.87
@@ -105,7 +111,7 @@ def main(_):
 
     if runLCRROTALT_v4 == True:
         _, pred2, fw2, bw2, tl2, tr2 = lcrModelAlt_hierarchical_v4.main(FLAGS.train_path, test, accuracyOnt, test_size,
-                                                                        remaining_size, Save, RestoreSave, restore_path)
+                                                                        remaining_size)
         tf.reset_default_graph()
 
     if runAdversarial == True:
