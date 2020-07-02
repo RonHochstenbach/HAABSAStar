@@ -85,8 +85,8 @@ def main(_):
         if runSVM == True:
             test = BASE_svm_val
         else:
-            #test = BASE_val
-            test = REMAIN_val
+            test = BASE_val
+            #test = REMAIN_val
 
     if runLCRROT == True:
         acc = []
@@ -164,12 +164,12 @@ def main(_):
         acc = []
         # k-fold cross validation
         for i in range(split_size):
-            acc1 = lcrModelAlt_hierarchical_v4.main(BASE_svm_train + str(i) + '.txt', test + str(i) + '.txt', accuracyOnt, test_size[i],
+            acc1 = lcrModelAlt_hierarchical_v4.main(BASE_train + str(i) + '.txt', test + str(i) + '.txt', accuracyOnt, test_size[i],
                                  remaining_size)
 
         acc.append(acc1)
         tf.reset_default_graph()
-        with open("cross_results_" + str(FLAGS.year) + "/SVM_" + str(FLAGS.year) + '.txt', 'w') as result:
+        with open("cross_results_" + str(FLAGS.year) + "/v4_" + str(FLAGS.year) + '.txt', 'w') as result:
             print(str(split_size) + '-fold cross validation results')
         print('Accuracy: {:.5f}, St Dev:{:.4f}'.format(np.mean(np.asarray(acc)), np.std(np.asarray(acc))))
         result.write(str(acc))
@@ -183,13 +183,13 @@ def main(_):
         # k-fold cross validation
         for i in range(split_size):
             if FLAGS.year = 2015:
-                acc1, pred2, fw2, bw2, tl2, tr2 = adversarial.main(BASE_svm_train + str(i) + '.txt', test + str(i) + '.txt', accuracyOnt, test_size[i],
+                acc1, pred2, fw2, bw2, tl2, tr2 = adversarial.main(BASE_train + str(i) + '.txt', test + str(i) + '.txt', accuracyOnt, test_size[i],
                                                         remaining_size,
                                                         learning_rate_dis=0.02, learning_rate_gen=0.002,
                                                         keep_prob=0.3, momentum_dis=0.9, momentum_gen=0.36,
                                                         l2=0.00001, k=3, WriteFile=False)
             else:
-                acc1, pred2, fw2, bw2, tl2, tr2 = adversarial.main(BASE_svm_train + str(i) + '.txt', test + str(i) + '.txt', accuracyOnt, test_size[i],
+                acc1, pred2, fw2, bw2, tl2, tr2 = adversarial.main(BASE_train + str(i) + '.txt', test + str(i) + '.txt', accuracyOnt, test_size[i],
                                                         remaining_size,
                                                         learning_rate_dis=0.03, learning_rate_gen=0.0045,
                                                         keep_prob=0.3, momentum_dis=0.7, momentum_gen=0.42,
@@ -197,7 +197,7 @@ def main(_):
 
         acc.append(acc1)
         tf.reset_default_graph()
-        with open("cross_results_" + str(FLAGS.year) + "/SVM_" + str(FLAGS.year) + '.txt', 'w') as result:
+        with open("cross_results_" + str(FLAGS.year) + "/Adv_" + str(FLAGS.year) + '.txt', 'w') as result:
             print(str(split_size) + '-fold cross validation results')
         print('Accuracy: {:.5f}, St Dev:{:.4f}'.format(np.mean(np.asarray(acc)), np.std(np.asarray(acc))))
         result.write(str(acc))
