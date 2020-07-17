@@ -60,9 +60,9 @@ adversarialspace_2015 = [
             ]
 
 adversarialspace_2016 = [
-                hp.choice('learning_rate_dis',[0.007, 0.01, 0.02, 0.03, 0.05]),
+                hp.choice('learning_rate_dis',[0.007, 0.01, 0.02, 0.03, 0.05,0.09]),
                 hp.choice('momentum_dis', [ 0.7, 0.8, 0.9]),
-                hp.choice('multiplier_lr', [0.1,0.15,0.2]),
+                hp.choice('multiplier_lr', [0.1,0.15,0.2,0.4]),
                 hp.choice('multiplier_mom', [0.4,0.6,0.8,1.6]),
                 hp.choice('k',[3,4,5])
             ]
@@ -307,7 +307,7 @@ def save_json_result(model_name, result):
 
 def load_json_result(best_result_name):
     """Load json from a path (directory + filename)."""
-    result_path = os.path.join("/HyperEvalResults/", best_result_name)
+    result_path = os.path.join("/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/HyperEvalResults/", best_result_name)
     with open(result_path, 'r') as f:
         return json.JSONDecoder().decode(
             f.read()
@@ -315,7 +315,7 @@ def load_json_result(best_result_name):
 
 def load_best_hyperspace():
     results = [
-        f for f in list(sorted(os.listdir("/HyperEvalResults/"))) if 'json' in f
+        f for f in list(sorted(os.listdir("/Users/ronhochstenbach/Desktop/Ectrie Thesis/Venv_Thesis/HyperEvalResults/"))) if 'json' in f
     ]
     if len(results) == 0:
         return None
